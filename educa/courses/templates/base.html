@@ -1,29 +1,93 @@
-{% load staticfiles %}
+
+{% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8" />
 <title>{% block title %}Educa{% endblock %}</title>
+<link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'oneschool/fonts/icomoon/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'oneschool/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'oneschool/css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'oneschool/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'oneschool/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'oneschool/css/owl.theme.default.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'oneschool/css/jquery.fancybox.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'oneschool/css/bootstrap-datepicker.css' %}">
+
+    <link rel="stylesheet" href="{% static 'oneschool/fonts/flaticon/font/flaticon.css' %}">
+
+    <link rel="stylesheet" href="{% static 'oneschool/css/aos.css' %}">
+
+    <link rel="stylesheet" href="{% static 'oneschool/css/style.css' %}">
 <link href="{% static 'css/main.css' %}" rel="stylesheet">
 </head>
-<body>
-<div id="header">
-<a href="/" class="navbar navbar-expand-sm bg-light">Educa</a>
-<ul class="menu">
-{% if request.user.is_authenticated %}
-<li><a href="{% url 'logout' %}">Sign out</a></li>
-{% else %}
-<li><a href="{% url 'login' %}">Sign in</a></li>
-{% endif %}
-</ul>
-</div>
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300"  style="background:#494E53;margin:auto;">
+
+<!--<div id="header" class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+
+<div class="container-fluid">
+        <div class="d-flex align-items-center">
+          <div class="site-logo mr-auto w-25"><a href="index.html">E-learning</a></div>
+
+          <div class="mx-auto text-center">
+            <nav class="site-navigation position-relative text-right" role="navigation">
+              <ul class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0">
+                <li><a href="#home-section" class="nav-link">Home</a></li>
+                <li><a href="#courses-section" class="nav-link">Courses</a></li>
+                <li><a href="#programs-section" class="nav-link">Programs</a></li>
+                <li><a href="#teachers-section" class="nav-link">Teachers</a></li>
+
+				{% if request.user.is_authenticated %}
+				<li><a href="{% url 'logout' %}">Sign out</a></li>
+				{% else %}
+				<li><a href="{% url 'login' %}">Sign in</a></li>
+				{% endif %}
+
+              </ul>
+            </nav>
+          </div>
+
+          <div class="ml-auto w-25">
+            <nav class="site-navigation position-relative text-right" role="navigation">
+              <ul class="site-menu main-menu site-menu-dark js-clone-nav mr-auto d-none d-lg-block m-0 p-0">
+                <li class="cta"><a href="#contact-section" class="nav-link"><span>Contact Us</span></a></li>
+              </ul>
+            </nav>
+            <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a>
+          </div>
+        </div>
+      </div>
+</div>-->
 <div id="content">
 {% block content %}
 {% endblock %}
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src="{% static 'oneschool/js/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'oneschool/js/jquery-migrate-3.0.1.min.js' %}"></script>
+  <script src="{% static 'oneschool/js/jquery-ui.js' %}"></script>
+  <script src="{% static 'oneschool/js/popper.min.js' %}"></script>
+  <script src="{% static 'oneschool/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'oneschool/js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'oneschool/js/jquery.stellar.min.js' %}"></script>
+  <script src="{% static 'oneschool/js/jquery.countdown.min.js' %}"></script>
+  <script src="{% static 'oneschool/js/bootstrap-datepicker.min.js' %}"></script>
+  <script src="{% static 'oneschool/js/jquery.easing.1.3.js' %}"></script>
+  <script src="{% static 'oneschool/js/aos.js' %}"></script>
+  <script src="{% static 'oneschool/js/jquery.fancybox.min.js' %}"></script>
+  <script src="{% static 'oneschool/js/jquery.sticky.js' %}"></script>
+
+  
+  <script src="{% static 'oneschool/js/main.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+
+
 <script>
 $(document).ready(function() {
 {% block domready %}
@@ -64,6 +128,6 @@ data: JSON.stringify(contents_order),
 {% endblock %}
 });
 </script>
-
+ 
 </body>
 </html>

@@ -1,26 +1,85 @@
-{% extends "base.html" %}
-{% block title %}My courses{% endblock %}
-{% block content %}
-<h1>My courses</h1>
-<div class="module">
-{% for course in object_list %}
-<div class="course-info">
-<h3>{{ course.title }}</h3>
-<p>
-<a href="{% url 'courses:course_edit' course.id %}">Edit</a>
-<a href="{% url 'courses:course_delete' course.id %}">Delete</a>
-<a href="{% url 'courses:course_module_update' course.id %}">Edit modules</a>
-{% if course.modules.count > 0 %}
-<a href="{% url 'courses:module_content_list' course.modules.first.id%}">Manage contents</a>
-{% endif %}
-</p>
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Courses Created By you</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'oneschool/fonts/icomoon/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'oneschool/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'oneschool/css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'oneschool/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'oneschool/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'oneschool/css/owl.theme.default.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'oneschool/css/jquery.fancybox.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'oneschool/css/bootstrap-datepicker.css' %}">
+
+    <link rel="stylesheet" href="{% static 'oneschool/fonts/flaticon/font/flaticon.css' %}">
+
+    <link rel="stylesheet" href="{% static 'oneschool/css/aos.css' %}">
+
+    <link rel="stylesheet" href="{% static 'oneschool/css/style.css' %}">
+    <style>
+    body{
+    	margin: 30px;
+    	background-color: #494E53;
+    }
+    
+	.my-row{
+		border:3px solid ;
+		height: 200px;
+	}
+	.my-col{
+		border:3px dotted blue;
+	}
+</style>
+</head>
+<body>
+
+
+<div class="container">
+	<h1>My courses</h1>
+	{% for course in object_list %}
+
+	<div class="row justify-content-center my-row">
+
+		<div class="col-md-10 col-sm-6">
+			<h3><strong>Course-Title: {{ course.title }}</strong></h3>
+			<p>
+		<br/>
+		<br/>
+		<a href="{% url 'courses:course_edit' course.id %}" class="btn btn-primary py-3 px-5 btn-pill" role="button">Edit</a>
+		<a href="{% url 'courses:course_delete' course.id %}" class="btn btn-primary py-3 px-5 btn-pill" role="button">Delete</a>
+		<a href="{% url 'courses:course_module_update' course.id %}" class="btn btn-primary py-3 px-5 btn-pill" role="button">Edit modules</a>
+			{% if course.modules.count > 0 %}
+			<a href="{% url 'courses:module_content_list' course.modules.first.id%}" class="btn btn-primary py-3 px-5 btn-pill" role="button">Manage contents</a>
+			{% endif %}
+			</p>
+			</div>
+		{% empty %}
+		<p>You haven't created any courses yet.</p>
+	</div>
+	{% endfor %}
 </div>
-{% empty %}
-<p>You haven't created any courses yet.</p>
-{% endfor %}
-<p>
-<a href="{% url 'courses:course_create' %}" class="button">Create new
-course</a>
-</p>
+<br/>
+<br/>
+<br/>
+<div class="container">
+	<div class="row justify-content-center align-items-center my-row">
+		<div class="col-md-10 col-sm-6">
+			<p>
+			<a href="{% url 'courses:course_create' %}" class="btn btn-primary py-3 px-5 btn-pill" role="button">Create new course</a>
+		</p>
+	</div>
+	</div>
 </div>
-{% endblock %}
+</body>
+</html>
+

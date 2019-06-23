@@ -5,8 +5,8 @@
 <div class="module">
 <form action="" method="post">
 {% csrf_token %}
-<p>Are you sure you want to delete "{{ object }}"?</p>
-<input type="submit" class"button" value="Confirm">
+<h2>Are you sure you want to delete "{{ object }}"?</h2>
+<input type="submit" class="btn btn-primary py-3 px-5 btn-pill" value="Confirm" style="background: #7971EA">
 </form>
 </div>
 {% endblock %}

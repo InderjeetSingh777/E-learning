@@ -6,25 +6,29 @@ from django.views.generic.detail import DetailView
 from django.contrib.auth import authenticate, login
 from braces.views import LoginRequiredMixin
 
+from django.contrib.auth.forms import UserCreationForm
+from Accounts.forms import RegistrationForm
 from .forms import CourseEnrollForm
 from courses.models import Course
 # Create your views here.
-
+from Accounts.models import User
 
 class StudentRegistrationView(CreateView):
     template_name = 'students/student/registration.html'
-    form_class = UserCreationForm
-    success_url = reverse_lazy('student:student_course_list')
+    form_class = RegistrationForm
+    success_url = reverse_lazy('login')
 
     def form_valid(self, form):
         result = super(StudentRegistrationView, self).form_valid(form)
         cd = form.cleaned_data
         user = authenticate(
                username=cd['username'],
-               password=cd['password']
+               password=cd['password1']
                )
-        login(self.request, user)
+        # login(self.request, user)
         return result
+
+
 
 
 class StudentEnrollCourseView(LoginRequiredMixin, FormView):
@@ -48,7 +52,7 @@ class StudentCourseListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         qs = super(StudentCourseListView, self).get_queryset()
-        return qs.filter(students__in=['self.request.user'])
+        return qs.filter(students__in=[self.request.user])
 
 
 class StudentCourseDetailView(DetailView):

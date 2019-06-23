@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
 {% block title %}
 {% if object %}
 Edit course "{{ object.title }}"
@@ -7,7 +9,7 @@ Create a new course
 {% endif %}
 {% endblock %}
 {% block content %}
-<h1>
+<h1 style="color:black;">
 {% if object %}
 Edit course "{{ object.title }}"
 {% else %}
@@ -16,10 +18,46 @@ Create a new course
 </h1>
 <div class="module">
 <h2>Course info</h2>
-<form action="#" method="post">
-{{ form.as_p }}
-{% csrf_token %}
-<p><input type="submit" value="Save course"></p>
-</form>
+<div class="container">
+	<div class="row justify-content-center">
+            <div class="col-md-12 col-sm-12">
+            	<form action="#" method="post">
+    			{% csrf_token %}
+    			{{ form.subject|as_crispy_field }}
+			</div>
+		</div>
+           <div class="row justify-content-center">
+            <div class="col-md-12 col-sm-12">
+            	
+    			 {{ form.title|as_crispy_field }}
+			</div>
+		</div>   
+		 <div class="row justify-content-center">
+            <div class="col-md-12 col-sm-12">
+            	
+    			 {{ form.slug|as_crispy_field }}
+			</div>
+		</div>  
+		 <div class="row justify-content-center">
+            <div class="col-md-12 col-sm-12">
+            	
+    			 {{ form.overview|as_crispy_field }}
+			</div>
+		</div>
+		<br/>
+		<br/>
+		<div class="row justify-content-center">
+            <div class="col-md-12 col-sm-12">
+            	{% if object %}
+    			  <button type="submit" class="btn btn-primary">Update Course</button>
+    			  {% else %}
+			<button type="submit" class="btn btn-primary">Create Course</button>
+			{% endif %}
+			</div>
+		</div>  
+    
+   
+ 		 </form>
+ 		</div>
 </div>
 {% endblock %}

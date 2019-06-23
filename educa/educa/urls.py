@@ -18,13 +18,14 @@ from django.urls import path,include
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
-
-from courses.views import CourseListView
+from Accounts.views import user_login
+from courses.views import CourseListView,test
 
 urlpatterns = [
-    path('',CourseListView.as_view(),name='course_list'),
+    path('',test,name='test'),
+    path('hello/',CourseListView.as_view(),name='course_list'),
     path('admin/', admin.site.urls),
-    path('accounts/login/',auth_views.LoginView.as_view(),name='login'),
+    path('accounts/login/',user_login,name='login'),
     path('accounts/logout/',auth_views.LogoutView.as_view(),name='logout'),
     path('course/',include(('courses.urls','courses'),namespace='courses')),
     path('student/',include(('Student.urls','Student'),namespace='student')),

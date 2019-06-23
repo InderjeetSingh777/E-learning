@@ -28,6 +28,8 @@ from django.views.generic.detail import DetailView
 
 from Student.forms import CourseEnrollForm
 
+def test(request):
+    return render(request, 'courses/home.html', {})
 
 class ManageCourseListView(ListView):
 	model=Course
