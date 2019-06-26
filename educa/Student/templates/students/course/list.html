@@ -1,0 +1,52 @@
+{% extends "courses/home.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}My Courses{% endblock %}
+{% block head %}
+<li class="nav-item">
+        <a class="nav-link" href="{% url 'student:student_course_list' %}">Dashboard</a>
+      </li>
+{% endblock %}
+{% block content %}
+<div class="container" style="background-image:url({% static 'lightGrey.jpg' %});height:200px;width:100%;">
+	<div class="row align-items-center">
+		<div class="col align-self-center">
+			<br/>
+			<br/>
+			<br/>
+			<center><h1>My Courses</h1></center>
+		</div>
+	</div>
+</div>
+<br/>
+<br/>
+<div class="container">
+	
+		<div class="row shadow justify-content-start align-items-start">
+          {% for course in object_list %}
+          <div class="col-md-4">
+              <img src="{{course.image.url}}" style="display: block;margin-left: auto;margin-right: auto;width: 60%;height: 30%;">
+              <center>{{course.title }}</center>
+              <center><a href="{% url 'student:student_course_detail' course.id%}">Access Contents</a></center>
+              <br/>
+              <br/>
+            </div>
+            {% empty %}
+            <div class="col-md-4">
+            <h2><strong>You are not enrolled in any courses yet.</strong></h2>
+        </div>
+            {% endfor %}
+          </div>
+	
+		<br/>
+		<br/>
+		<br/>
+	
+</div>
+<br/>
+<br/>
+<br/>
+
+{% endblock %}
+

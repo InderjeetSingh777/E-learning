@@ -1,0 +1,187 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}E-learning{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<style>
+
+  .shadow {
+-webkit-border-radius: 0% 0% 100% 100% / 0% 0% 8px 8px;
+-webkit-box-shadow: rgba(0, 0, 0,.30) 0 2px 3px;
+}
+body{
+ font-family: 'Roboto Condensed', sans-serif;
+}
+#modules {
+  border: 1px solid black;
+  padding-right: 0px;
+  padding-left: 28px;
+  width: 60%;
+  border-radius: 5px;
+  background-color:#DFE1E0;
+}
+#modules li{
+
+}
+</style>
+
+  </head>
+  <body>
+ 
+      <nav class="navbar navbar-expand-lg navbar-light" style="margin-left:5%;margin-right:5%;background-color:#F5EFE3;">
+  <a class="navbar-brand" href="#">E-learning</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'fetchCourses' %}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'course_list' %}">Courses</a>
+      </li>
+      
+      
+    </ul>
+    
+    <ul class="navbar-nav ml-auto">
+      {% block head %}
+      <li class="nav-item">
+        <a class="nav-link" href="#about">About-us</a>
+      </li>
+      {% endblock %}
+      {% if not request.user.is_authenticated %}
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'login' %}">Log-In</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'student:student_registration' %}">Sign-up</a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">Log-Out</a>
+      </li>
+      {% endif %}
+      
+    </ul>
+  </div>
+</nav>
+{% block content %}
+<div>
+  <img src="{% static '/homePage.jpg' %}" style="display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  height: 20%;">
+</div>
+<br/>
+<br/>
+ <div class="container">
+  <h1 style="margin-left:35%;"><i>Trending Courses</i></h1>
+  <br/>
+  <br/>
+      <div class="row shadow justify-content-start align-items-start">
+          {% for course in qs %}
+          <div class="col-md-4">
+
+              <img src="{{course.image.url}}" style="display: block;margin-left: auto;margin-right: auto;width: 60%;height: 30%;">
+              {% if request.user.Student %}
+              <center><a href="{% url 'courses:course_detail' course.slug %}" style="color: #7971EA">{{course.title }}</a></center>
+              {% else %}
+              <center><a href="{% url 'courses:manage_course_list' %}" style="color: #7971EA">{{course.title }}</a></center>
+              {% endif %}
+              <br/>
+              <br/>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+<br/>
+<br/>
+<section id="about" style="background-color:#F5EFE3;color:black;">
+  <div class="container">
+    <div class="row">
+    <div class="col">
+      <p>
+<i>        
+<h2><strong>Our mission</strong></h2>
+<h4>To help you learn the skills you need to achieve your full potential.</h4>
+
+<h2><strong>About us</strong></h2>
+<h4>E-learning is an online learning platform that is designed specially for college students and professors.
+Professors can create the online content for the courses they teach and students can access these content anytime,anywhere.This site supports Content Management System(CMS) and handles various type of contents(files,images,videos,text).
+</h4>
+
+
+
+<h2><strong>Contact us:</strong></h2>
+<h4>Inderjeet Singh</h4>
+<h4><a href="tel:+91-8872552755">+91-8872552755</a></h4>
+<h4><a href="mailto:inderjeetnitj@gmail.com">inderjeetnitj@gmail.com</a></h4>
+
+      </p>
+    </div>
+  </div>
+  </div>
+</i>
+</section>
+{% endblock %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+
+
+<script>
+$(document).ready(function() {
+{% block domready %}
+$('#modules').sortable({
+stop: function(event, ui) {
+modules_order = {};
+$('#modules').children().each(function(){
+// update the order field
+$(this).find('.order').text($(this).index() + 1);
+// associate the module's id with its order
+modules_order[$(this).data('id')] = $(this).index();
+});
+$.ajax({
+type: 'POST',
+url: '{% url "courses:module_order" %}',
+contentType: 'application/json; charset=utf-8',
+dataType: 'json',
+data: JSON.stringify(modules_order)
+});
+}
+});
+$('#module-contents').sortable({
+stop: function(event, ui) {
+contents_order = {};
+$('#module-contents').children().each(function(){
+// associate the module's id with its order
+contents_order[$(this).data('id')] = $(this).index();
+});
+$.ajax({
+type: 'POST',
+url: '{% url "courses:content_order" %}',
+contentType: 'application/json; charset=utf-8',
+dataType: 'json',
+data: JSON.stringify(contents_order),
+});
+}
+});
+{% endblock %}
+});
+</script>
+ 
+  </body>
+</html>

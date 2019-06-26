@@ -1,21 +1,44 @@
-{% extends "base.html" %}
-{% block title %}Log-in{% endblock %}
+{% extends "courses/home.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Log-In{% endblock %}
+{% block head %}
+{% endblock %}
 {% block content %}
-<h1>Log-in</h1>
-<div class="module">
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</
-p>
-{% else %}
-<p>Please, use the following form to log-in:</p>
-{% endif %}
-<div class="login-form">
-<form action="{% url 'login' %}" method="post">
-{{ form.as_p }}
-{% csrf_token %}
-<input type="hidden" name="next" value="{{ next }}" />
-<p><input type="submit" value="Log-in"></p>
-</form>
-</div>
-</div>
+<div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-sm-6">
+            	{% if form.errors %}
+				<h2 style="color:red;">Your username and password didn't match. Please try again.</h2>
+				{% else %}
+				<h2></h2>
+				{% endif %}
+			</div>
+		</div>
+		<div class="row justify-content-center">
+            <div class="col-md-6 col-sm-6">
+            	<form action="{%url 'login' %}" method="post">
+    			{% csrf_token %}
+    			{{ form.username|as_crispy_field }}
+			</div>
+		</div>
+           <div class="row justify-content-center">
+            <div class="col-md-6 col-sm-6">
+            	
+    			 {{ form.password|as_crispy_field }}
+			</div>
+		</div>     
+		<div class="row justify-content-center">
+            <div class="col-md-6 col-sm-6">
+            	
+    			  <button type="submit" class="btn btn-primary">Log-in</button>
+			</div>
+		</div>  
+    
+   
+ 		 </form>
+ </div>
+
 {% endblock %}

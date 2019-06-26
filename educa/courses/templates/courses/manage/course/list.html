@@ -1,26 +1,64 @@
-{% extends "base.html" %}
-{% block title %}My courses{% endblock %}
+{% extends "courses/home.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}My Courses{% endblock %}
+{% block head %}
+<li class="nav-item">
+        <a class="nav-link" href="{% url 'courses:manage_course_list' %}">Dashboard</a>
+      </li>
+{% endblock %}
+
 {% block content %}
-<h1>My courses</h1>
-<div class="module">
-{% for course in object_list %}
-<div class="course-info">
-<h3>{{ course.title }}</h3>
-<p>
-<a href="{% url 'courses:course_edit' course.id %}">Edit</a>
-<a href="{% url 'courses:course_delete' course.id %}">Delete</a>
-<a href="{% url 'courses:course_module_update' course.id %}">Edit modules</a>
-{% if course.modules.count > 0 %}
-<a href="{% url 'courses:module_content_list' course.modules.first.id%}">Manage contents</a>
-{% endif %}
-</p>
+<div class="container" style="background-image:url({% static 'lightGrey.jpg' %});height:200px;width:100%;">
+	<div class="row align-items-center">
+		<div class="col align-self-center">
+			<br/>
+			<br/>
+			<br/>
+			<center><h1>My courses</h1></center>
+		</div>
+	</div>
 </div>
-{% empty %}
-<p>You haven't created any courses yet.</p>
-{% endfor %}
-<p>
-<a href="{% url 'courses:course_create' %}" class="button">Create new
-course</a>
-</p>
+<br/>
+<br/>
+<br/>
+<div class="container">
+		
+	<div class="row shadow justify-content-start align-items-start">
+          {% for course in object_list %}
+          <div class="col-md-6">
+              <img src="{{course.image.url}}" style="display: block;margin-left: auto;margin-right: auto;width: 60%;height: 30%;">
+              <center>{{course.title }}</center>
+              <center><a href="{% url 'courses:course_edit' course.id %}" style="color: #7971EA" >Edit</a>
+              <a href="{% url 'courses:course_delete' course.id %}" style="color: #7971EA" >Delete</a>
+              
+		<a href="{% url 'courses:course_module_update' course.id %}" style="color: #7971EA">Edit modules</a>
+			{% if course.modules.count > 0 %}
+			<a href="{% url 'courses:module_content_list' course.modules.first.id%}" style="color: #7971EA">Manage contents</a>
+			{% endif %}
+              <br/>
+              <br/>
+              </center>
+            </div>
+            {% empty %}
+
+		<h1><center>You haven't created any courses yet.</center></h1>
+            {% endfor %}
+          </div>
+        </div>
+	
+<br/>
+<br/>
+<br/>
+<div class="container">
+	<div class="row justify-content-center align-items-center my-row">
+		<div class="col-md-10 col-sm-6">
+			<p>
+			<center><a href="{% url 'courses:course_create' %}" class="btn btn-primary py-3 px-5 btn-pill" role="button">Create new course</a></center>
+		</p>
+	</div>
+	</div>
 </div>
 {% endblock %}
+

@@ -1,8 +1,20 @@
-{% extends "base.html" %}
+{% extends "courses/home.html" %}
+{% load static %}
 {% block title %}Logged out{% endblock %}
+{% block head %}
+{% endblock %}
 {% block content %}
-<h1>Logged out</h1>
+<div class="container" style="background-image:url({% static 'lightGrey.jpg' %});height:200px;width:100%;">
+	<div class="row align-items-center">
+		<div class="col align-self-center">
+			<br/>
+			<br/>
+			<br/>
+			<center><h1>Logged out</h1></center>
+		</div>
+	</div>
+</div>
 <div class="module">
-<p>You have been successfully logged out. You can <a href="{% url 'login' %}">log-in again</a>.</p>
+<center><h2>You have been successfully logged out. You can <a href="{% url 'login' %}">log-in again</a></h2></center>
 </div>
 {% endblock %}
