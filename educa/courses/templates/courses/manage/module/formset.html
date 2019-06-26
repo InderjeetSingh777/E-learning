@@ -1,13 +1,29 @@
 
-{% extends "base.html" %}
+{% extends "courses/home.html" %}
 
 {% load static %}
 {% load crispy_forms_tags %}
 {% block title %}
 Edit "{{ course.title }}"
 {% endblock %}
+{% block head %}
+<li class="nav-item">
+        <a class="nav-link" href="{% url 'courses:manage_course_list' %}">Dashboard</a>
+      </li>
+{% endblock %}
 {% block content %}
-<h1>Edit "{{ course.title }}"</h1>
+<div class="container" style="background-image:url({% static 'lightGrey.jpg' %});height:200px;width:100%;">
+    <div class="row align-items-center">
+        <div class="col align-self-center">
+            <br/>
+            <br/>
+            <br/>
+            <center><h1>Edit {{ course.title }}</h1></center>
+            
+    </div>
+</div>
+</div>
+
 <div class="module">
 
 <div class="container" >
@@ -23,7 +39,7 @@ Edit "{{ course.title }}"
         
             <div class="col-md-4 offset-2 col-sm-4">
             	{{ form|crispy }}
-            	<input type="submit" class="btn btn-primary" value="Save modules" style="background: #7971EA">
+            	<input type="submit" class="btn btn-primary" value="Save modules">
 			</div>
 		
             

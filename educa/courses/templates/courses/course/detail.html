@@ -1,31 +1,60 @@
-{% extends "base.html" %}
+{% extends "courses/home.html" %}
+{% load static %}
 {% block title %}
 {{ object.title }}
 {% endblock %}
+{% block head %}
+<li class="nav-item">
+        <a class="nav-link" href="{% url 'student:student_course_list' %}">Dashboard</a>
+      </li>
+{% endblock %}
 {% block content %}
 {% with subject=course.subject %}
-<h1>
-{{ object.title }}
-</h1>
-<div class="module">
-<h2>Overview</h2>
-<p>
-<a href="{% url 'courses:course_list_subject' subject.slug%}">{{ subject.title }}</a>.
-{{ course.modules.count }} modules.
-Instructor: {{ course.owner.get_full_name }}
-</p>
-{{ object.overview|linebreaks }}
-{% if request.user.is_authenticated %}
-<form action="{% url 'student:student_enroll_course' %}" method="post">
-{{ enroll_form }}
-{% csrf_token %}
-<input type="submit" class="button" value="Enroll now">
-</form>
-{% else %}
-<a href="{% url 'student:student_registration' %}" class="button">
-Register to enroll
-</a>
-{% endif %}
+<div class="container" style="background-image:url({% static 'lightGrey.jpg' %});height:200px;width:100%;">
+	<div class="row align-items-center">
+		<div class="col align-self-center">
+			<br/>
+			<br/>
+			<br/>
+			<center><h1>Course: {{object.title}}</h1></center>
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+	<h1><u>Subject</u> : 
+			{{ subject.title }}</h1><br/>
+	<div class="row justify-content-center module" >
+		
+		<div class="col-sm-6">
+						<h2 style="font-size:35px"><u>Total Modules</u> - {{ course.modules.count }}</h2>
+		</div>
+		<div class="col-sm-6 align-items-end">
+			<h2 style="font-size:35px"><u>Instructor</u>- {{ course.owner.get_full_name }}
+			</h2>
+		</div>
+	</div>
+		<br/>
+		<br/>
+		<br/>
+			<h3><u>About the Course:</u></h3>
+			<div class="row justify-content-center" style="font-size:20px">
+				<div class="col">
+			<i>{{ object.overview|linebreaks }}</i>
+			{% if request.user.is_authenticated %}
+			<form action="{% url 'student:student_enroll_course' %}" method="post">
+			{{ enroll_form }}
+			{% csrf_token %}
+			<input type="submit" class="btn btn-primary" value="Enroll Now">
+			</form>
+			{% else %}
+			<a href="{% url 'student:student_registration' %}" class="button">
+			Register to enroll
+			</a>
+			{% endif %}
+		</div>
+	</div>
 </div>
 {% endwith %}
 {% endblock %}

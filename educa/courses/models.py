@@ -8,6 +8,8 @@ from .fields import OrderField
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
+def content_file_name(instance, filename):
+    return '/'.join([filename])
 # Create your models here.
 class Subject(models.Model):
 	title=models.CharField(max_length=200)
@@ -27,6 +29,7 @@ class Course(models.Model):
 	overview=models.TextField()
 	created=models.DateTimeField(auto_now_add=True)
 	students=models.ManyToManyField(User,related_name='courses_joined',blank=True)
+	image=models.ImageField(default='default.jpg',upload_to=content_file_name,)
 	
 	class Meta:
 		ordering=('-created',)

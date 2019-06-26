@@ -1,16 +1,32 @@
-{% extends "base.html" %}
+{% extends "courses/home.html" %}
+{% load static %}
 {% load course %}
 {% block title %}
 Module {{ module.order|add:1 }}: {{ module.title }}
 {% endblock %}
+{% block head %}
+<li class="nav-item">
+        <a class="nav-link" href="{% url 'courses:manage_course_list' %}">Dashboard</a>
+      </li>
+{% endblock %}
 {% block content %}
 {% with course=module.course %}
-<h1>Course "{{ course.title }}"</h1>
+<div class="container" style="background-image:url({% static 'lightGrey.jpg' %});height:200px;width:100%;">
+	<div class="row align-items-center">
+		<div class="col align-self-center">
+			<br/>
+			<br/>
+			<br/>
+			<center><h1>Course: {{course.title}}</h1></center>
+		</div>
+	</div>
+</div>
 
 <div class="container">
-	<div class="row">
+	<div class="row shadow justify-content-start align-items-s">
 		<div class="col contents">
 			<h3>Modules</h3>
+
 			<ul id="modules">
 			{% for m in course.modules.all %}
 			<li data-id="{{ m.id }}" {% if m == module %} class="selected"{% endif %}>
@@ -26,39 +42,44 @@ Module {{ module.order|add:1 }}: {{ module.title }}
 			<li><strong>No modules yet.</strong></li>
 			{% endfor %}
 			</ul>
-			<p><a href="{% url 'courses:course_module_update' course.id %}" style="color: #7971EA">Edit
+			<br/>
+			<br/>
+			<p style="font-size:20px"><a href="{% url 'courses:course_module_update' course.id %}" >Edit
 			modules</a></p>
 					</div>
-		<div class="col module">
-			<h2>Module {{ module.order|add:1 }}. {{ module.title }}</h2>
-<h3>Module contents:</h3>
-<div id="module-contents">
-{% for content in module.contents.all %}
-<div data-id="{{ content.id }}">
-{% with item=content.item %}
-<p>{{ item }}({{item|model_name}})</p>
-<a href="{% url 'courses:module_content_update' module.id item|model_name item.id %}">Edit</a><br/>
-<a href="{% url 'courses:module_content_delete' content.id %}">Delete</a>
-{% csrf_token %}
-</form>
-{% endwith %}
-</div>
-{% empty %}
-<p><strong>This module has no contents yet.</strong></p>
-{% endfor %}
+				
+			<div class="col module">
+			<h2><u>Module {{ module.order|add:1 }}</u>. {{ module.title }}</h2>
+			<br/>
+			<h3>Module contents:</h3>
+			<div id="module-contents" >
+			{% for content in module.contents.all %}
+			<div data-id="{{ content.id }}">
+			{% with item=content.item %}
+			<p style="font-size:20px">{{ item }}({{item|model_name}}) <br/>
+			<a href="{% url 'courses:module_content_update' module.id item|model_name item.id %}">Edit</a>
+			<a href="{% url 'courses:module_content_delete' content.id %}">Delete</a>
+			</p>
+			{% csrf_token %}
+			</form>
+			{% endwith %}
+			</div>
+			{% empty %}
+			<p><i><strong>This module has no contents yet.</strong></i></p>
+			{% endfor %}
 
-</div>
-<hr>
-<h3>Add new content:</h3>
-<ul class="content-types">
-<li style="background: #7971EA"><a href="{% url 'courses:module_content_create' module.id 'text' %}" style="color: white">Text</a></li>
-<li style="background: #7971EA"><a href="{% url 'courses:module_content_create' module.id 'image' %}" style="color: white">Image</a></li>
-<li style="background: #7971EA"><a href="{% url 'courses:module_content_create' module.id 'video' %}" style="color: white">Video</a></li>
-<li style="background: #7971EA"><a href="{% url 'courses:module_content_create' module.id 'file' %}" style="color: white">File</a></li>
-</ul>
-		</div>
-	</div>
-</div>
+			</div>
+			<hr>
+			<h3>Add new content:</h3>
+			<div class="module-contents"  style="font-size:20px">
+			<a href="{% url 'courses:module_content_create' module.id 'text' %}" >Text</a>
+			<a href="{% url 'courses:module_content_create' module.id 'image' %}">Image</a>
+			<a href="{% url 'courses:module_content_create' module.id 'video' %}" >Video</a>
+			<a href="{% url 'courses:module_content_create' module.id 'file' %}" >File</a>
+			</div>
+					</div>
+				</div>
+			</div>
 
 {% endwith %}
 {% endblock %}

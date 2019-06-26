@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "courses/home.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
 {% block title %}
@@ -8,16 +8,25 @@ Edit course "{{ object.title }}"
 Create a new course
 {% endif %}
 {% endblock %}
+{% block head %}
+{% endblock %}
 {% block content %}
-<h1 style="color:black;">
-{% if object %}
-Edit course "{{ object.title }}"
-{% else %}
-Create a new course
-{% endif %}
-</h1>
+<div class="container" style="background-image:url({% static 'lightGrey.jpg' %});height:200px;width:100%;">
+	<div class="row align-items-center">
+		<div class="col align-self-center">
+			<br/>
+			<br/>
+			<br/>
+			<center><h1>{% if object %}
+			Edit course : "{{ object.title }}"
+			{% else %}
+			Create a new course
+{% endif %}</h1></center>
+		</div>
+	</div>
+</div>
 <div class="module">
-<h2>Course info</h2>
+<center><h2>Course info</h2></center>
 <div class="container">
 	<div class="row justify-content-center">
             <div class="col-md-12 col-sm-12">
@@ -44,8 +53,7 @@ Create a new course
     			 {{ form.overview|as_crispy_field }}
 			</div>
 		</div>
-		<br/>
-		<br/>
+		
 		<div class="row justify-content-center">
             <div class="col-md-12 col-sm-12">
             	{% if object %}

@@ -1,31 +1,44 @@
 {% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
 {% block title %}
 {{ object.title }}
+{% endblock %}
+{% block head %}
+<li class="nav-item">
+        <a class="nav-link" href="{% url 'student:student_course_list' %}">Dashboard</a>
+      </li>
 {% endblock %}
 {% block content %}
 {% with subject=course.subject %}
 <h1>
 {{ object.title }}
 </h1>
-<div class="module">
-<h2>Overview</h2>
-<p>
-<a href="{% url 'courses:course_list_subject' subject.slug%}">{{ subject.title }}</a>.
-{{ course.modules.count }} modules.
-{{ course.owner.get_full_name }}
-</p>
-{{ object.overview|linebreaks }}
-{% if request.user.is_authenticated %}
-<form action="{% url 'student:student_enroll_course' %}" method="post">
-{{ enroll_form }}
-{% csrf_token %}
-<input type="submit" class="button" value="Enroll now">
-</form>
-{% else %}
-<a href="{% url 'student:student_registration' %}" class="button">
-Register to enroll
-</a>
-{% endif %}
+
+<div class="container">
+	<div class="row justify-content-center module">
+		<div class="col-md-6">
+			<h2>Overview</h2>
+			<p>
+			<a href="{% url 'courses:course_list_subject' subject.slug%}">{{ subject.title }}</a><br/>
+			Total Modules={{ course.modules.count }}</br>
+
+			Instructor- <strong>{{ course.owner.get_full_name }}</strong>
+			</p>
+			{{ object.overview|linebreaks }}
+			{% if request.user.is_authenticated %}
+			<form action="{% url 'student:student_enroll_course' %}" method="post">
+			{{ enroll_form|crispy }}
+			{% csrf_token %}
+			<input type="submit" class="btn btn-primary" value="Enroll Now" style="background: #7971EA">
+			</form>
+			{% else %}
+			<a href="{% url 'student:student_registration' %}" class="button">
+			Register to enroll
+			</a>
+			{% endif %}
+		</div>
+	</div>
 </div>
 {% endwith %}
 {% endblock %}

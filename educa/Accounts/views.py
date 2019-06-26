@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
 from django.shortcuts import render
 from django.contrib.auth import(authenticate,get_user_model,login,logout)
@@ -29,9 +29,9 @@ def user_login(request):
                 # In this case their homepage.
                 print(request.user.role)
                 if request.user.role=='Student':
-                	return render(request, 'students/course/list.html', {})
+                	return redirect('/student/courses/')
                 else:
-                	return render(request, 'courses/manage/course/list.html', {})
+                	return redirect('/course/mine/')
             else:
                 # If account is not active:
                 print('yo')

@@ -5,7 +5,7 @@ from django.contrib.auth.models import(AbstractBaseUser,BaseUserManager)
 
 
 class UserManager(BaseUserManager):
-    def create_user(self,username,full_name,password=None,active=True,is_staff=False,is_admin=False):
+    def create_user(self,username,full_name,password=None,active=True,is_staff=False,is_admin=False,Student=True):
         if not username:
             raise ValueError("User must have a username")
         if not password:
@@ -17,6 +17,7 @@ class UserManager(BaseUserManager):
         user_obj.staff=is_staff
         user_obj.admin=is_admin
         user_obj.active=active
+        user_obj.Student=Student
         user_obj.save(using=self._db)
         return user_obj
 
@@ -35,6 +36,7 @@ class User(AbstractBaseUser):
     active=models.BooleanField(default=True)#can login
     staff=models.BooleanField(default=False)#staff user non-superuser
     admin=models.BooleanField(default=False)
+    Student=models.BooleanField(default=True)
     #username and password are required by default
     USERNAME_FIELD='username'
     REQUIRED_FIELDS=['full_name']

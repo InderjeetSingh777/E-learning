@@ -1,12 +1,32 @@
-{% extends "base.html" %}
+{% extends "courses/home.html" %}
+{% load static %}
 {% block title %}Delete course{% endblock %}
+{% block head %}
+<li class="nav-item">
+        <a class="nav-link" href="{% url 'courses:manage_course_list' %}">Dashboard</a>
+      </li>
+{% endblock %}
 {% block content %}
-<h1>Delete course "{{ object.title }}"</h1>
-<div class="module">
-<form action="" method="post">
-{% csrf_token %}
-<h2>Are you sure you want to delete "{{ object }}"?</h2>
-<input type="submit" class="btn btn-primary py-3 px-5 btn-pill" value="Confirm" style="background: #7971EA">
-</form>
+<div class="container" style="background-image:url({% static 'lightGrey.jpg' %});height:200px;width:100%;">
+	<div class="row align-items-center">
+		<div class="col align-self-center">
+			<br/>
+			<br/>
+			<br/>
+			<center><h1>Delete course "{{ object.title }}"</h1></center>
+			
+	</div>
 </div>
+
+</div>
+<br/>
+<br/>
+<div class="module">
+			<form action="" method="post">
+			{% csrf_token %}
+			<center><h2>Are you sure you want to delete "{{ object }}"?</h2>
+		<input type="submit" class="btn btn-primary py-3 px-5 btn-pill" value="Confirm">
+		</form>
+		</div>
+	</center>
 {% endblock %}

@@ -36,7 +36,7 @@ class StudentEnrollCourseView(LoginRequiredMixin, FormView):
     form_class = CourseEnrollForm
 
     def form_valid(self, form):
-        print('hi')
+        print('hooo')
         self.course = form.cleaned_data['course']
         self.course.students.add(self.request.user)
         return super(StudentEnrollCourseView, self).form_valid(form)
@@ -51,7 +51,9 @@ class StudentCourseListView(LoginRequiredMixin, ListView):
     template_name = 'students/course/list.html'
 
     def get_queryset(self):
+        print('entry')
         qs = super(StudentCourseListView, self).get_queryset()
+        print(qs)
         return qs.filter(students__in=[self.request.user])
 
 
@@ -60,7 +62,9 @@ class StudentCourseDetailView(DetailView):
     template_name = 'students/course/detail.html'
 
     def get_queryset(self):
+        print('entry')
         qs = super(StudentCourseDetailView, self).get_queryset()
+        print(qs)
         return qs.filter(students__in=[self.request.user])
 
     def get_context_data(self, **kwargs):

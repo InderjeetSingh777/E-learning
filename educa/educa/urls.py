@@ -19,11 +19,11 @@ from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 from Accounts.views import user_login
-from courses.views import CourseListView,test
+from courses.views import CourseListView,fetchCourses
 
 urlpatterns = [
-    path('',test,name='test'),
-    path('hello/',CourseListView.as_view(),name='course_list'),
+    path('',fetchCourses,name='fetchCourses'),
+    path('ourCourses/',CourseListView.as_view(),name='course_list'),
     path('admin/', admin.site.urls),
     path('accounts/login/',user_login,name='login'),
     path('accounts/logout/',auth_views.LogoutView.as_view(),name='logout'),

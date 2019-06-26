@@ -16,6 +16,6 @@ urlpatterns = [
     path('content/order/',views.ContentOrderView.as_view(),name='content_order'),
     path('subject/<str:subject>/',views.CourseListView.as_view(),name='course_list_subject'),
     path('<slug>/',views.CourseDetailView.as_view(),name='course_detail'),
-    path('test/',views.test,name='test'),
+    
 
 ]
